@@ -1,0 +1,10 @@
+@media screen and (max-width: 500px) {
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
+    width: 45vw;
+}
+
+.tracker {
+    width: auto !important;
+}
+
+}

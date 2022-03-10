@@ -1,0 +1,143 @@
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: #cd5879;
+  }
+  
+  .hover-underline-animation:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    background-color: #5c6fa6;
+    transform-origin: bottom right;
+    transition: transform 0.30s ease-out;
+  }
+  
+  .hover-underline-animation:hover:before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .hover-underline-animation:hover {
+    color: white;
+    transition: transform 2s ease-out;
+  }
+
+  .hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #7e8cb8;
+    z-index: -1;
+    transform-origin:left;
+    transition: transform 0.50s ease-out;
+  }
+  
+  .hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+
+  .between {
+    display: none !important;
+    width: auto !important;
+  }
+
+
+  .hehe {
+    background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  /*login page*/
+
+  .login {
+    display: block !important;
+  }
+
+  @media screen and (max-width:1245px) {
+    .head {
+      margin-top: 3rem;
+     
+    }
+    
+  }
+
+
+  @media screen and (max-width: 1000px){
+    .second {
+      float: inherit;
+    }
+    .hehe {
+      display: none;
+    }
+    .desc {
+      text-align: left;
+      font-size: 4rem;
+      margin-top: 3rem;
+    }
+    
+    .head {
+      margin-top: 5rem;
+    }
+    .img {
+      display: none;
+    }
+    .between {
+      display: block !important;
+    }
+    
+  }
+
+  @media screen and (max-width: 500px){
+    .card {
+      flex-direction: column;
+    }
+    
+    .between {
+      display: block !important;
+    }
+    .hehe {
+      display: block;
+      font-size: 3rem;
+      text-align: center;
+    }
+    .desc {
+      text-align: center;
+      font-size: 3rem;
+    }
+
+    /*login page*/
+    
+    .formcard {
+      width: auto;
+      margin-left: 0px;
+      margin-right: 0px;
+      
+    }
+
+    label+.css-1480iag-MuiInputBase-root-MuiInput-root, .submit {
+      width: fit-content
+    }
+    .css-1ft9mzz-MuiFormControl-root-MuiTextField-root {
+      max-width: 400px !important;
+      margin: auto !important;
+      min-width: 0px !important; 
+    }
+
+    .submit {
+      margin-top: 2rem !important;
+      width: 9rem;
+    }
+
+  }
+
