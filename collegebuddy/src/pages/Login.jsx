@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField'
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import axios from 'axios'
+//import Cookies from 'universal-cookie';
+
 
 const Login = () => {
     const [Username, setUsername] = useState('')
@@ -11,11 +13,14 @@ const Login = () => {
     const onclick = (e) => {
         e.preventDefault();
         if (Username && Password) {
-            axios.post('http://127.0.0.1:5000/login', { username: Username, password: Password })
+            axios.post('http://127.0.0.1:5000/login', 
+                { username: Username, password: Password }, 
+                {
+                    withCredentials: true,
+                }
+            )
                 .then(res => {
-                    console.log(res.data)
                     if(res.data.success===true) {
-                        localStorage.setItem("token", res.data.token)
                         history('/')
                     }
                 }

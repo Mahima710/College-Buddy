@@ -41,8 +41,12 @@ const Register = async (req, res) => {
           }
         );
         user.token = token;
-        req.session.token = token;
-        req.headers["x-access-token"] = token;
+        res.cookie("jwt", token, {
+          expires: new Date(Date.now() + 43200000),
+          secure: true,
+          httpOnly: true,
+          sameSite: "None",
+        });
         user
           .save()
           .then(res.status(200).json({ success: true, data: user }))

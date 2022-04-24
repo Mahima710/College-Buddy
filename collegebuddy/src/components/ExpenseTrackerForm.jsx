@@ -7,8 +7,6 @@ import Select from "@mui/material/Select";
 import axios from "axios";
 
 const ExpenseTrackerForm = ({
-  Balance,
-  setBalance,
   type,
   setType,
   note,
@@ -23,20 +21,13 @@ const ExpenseTrackerForm = ({
 
   const onClick = (e) => {
     e.preventDefault();
-    if (localStorage.token) {
-      var headers = localStorage.token
-  }
     axios
       .post("http://localhost:5000/expensetracker", {
         Transaction_type: type,
         amount: Amount,
         note: note,
-        token: headers
       }, {
         withCredentials: true,
-        headers:{
-         token:headers
-        }
       })
       .then((res) => {
         console.log(res.data);

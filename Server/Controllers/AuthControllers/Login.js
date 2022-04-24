@@ -1,4 +1,3 @@
-const ExpenseTracker = require("../../models/Expensetrack");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/users");
@@ -16,24 +15,20 @@ const Login = async (req, res) => {
         const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_KEY, {
           expiresIn: "4h",
         });
-
         const updatedUser = await User.updateOne(
           { username: user.username },
           { $set: { token: token } },
           { new: true, runValidators: true, credentials: true }
         );
         if (!updatedUser) {
-          console.log("hehe");
+          console.log("something went wrong");
         }
-
-        /*await User.updateOne(
-                { username: user.username },
-                { $set: { token: token } }
-              ).catch((err) => {
-                console.log(err);
-              });*/
-        req.session.token = token;
-        console.log("updated", req.session.token);
+        res.cookie("jwt", token, {
+          expires: new Date(Date.now() + 43200000),
+          secure: true,
+          httpOnly: true,
+          sameSite: "None",
+        });
         return res
           .status(200)
           .json({ success: true, data: updatedUser, token: token });

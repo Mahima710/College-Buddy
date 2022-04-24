@@ -1,18 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 
-
-
-
 export const History = (type) => {
-    if (localStorage.token) {
-        var headers = localStorage.token;
-      }
     axios
-        .get("http://localhost:5000/expensetracker", {
-          headers: {
-            token: headers,
-          },
+        .get("http://localhost:5000/expensetracker", 
+        {
+          withCredentials:true
         })
         .then((res) => {
           console.log(res.data);

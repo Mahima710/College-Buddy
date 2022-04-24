@@ -1,6 +1,7 @@
 const ExpenseTracker = require("../../models/Expensetrack");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const User = require("../../models/users");
 
 const AddExpense = async (req, res) => {
   const { Transaction_type, amount, note } = req.body;
@@ -9,7 +10,7 @@ const AddExpense = async (req, res) => {
       .status(200)
       .json({ success: true, message: "All fields are required" });
   } else {
-    const token = req.body.token;
+    const token = req.cookies.jwt;
     const user = await User.findOne({ token: token });
     const ExpenseObj = new ExpenseTracker({
       Transaction_type: Transaction_type,

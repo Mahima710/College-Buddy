@@ -1,19 +1,58 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Expensetracker from '../assets/expenseTracker.PNG'
 import ExpenseTrackerForm from '../components/ExpenseTrackerForm';
 import  ExpenseHistory  from '../components/ExpenseHistory';
 import Navbar from '../components/Navbar.jsx'
 import "../assets/expensetracker.css"
-import axios from "axios";
-
+import axios from "axios"
 
 const ExpenseTracker = () => {
-    const [Balance, setBalance] = useState()
+    const [Balance, setBalance] = useState(0)
     const [Option, setOption] = useState('Transaction')
     const [Type, setType] = useState('')
     const [Note, setNote] = useState('')
     const [Amount, setAmount] = useState()
+    const [data, setdata] = useState(null)
 
+    useEffect(() => {
+      const func = async ()  =>  {
+        const getdata = await axios.get(
+          "http://localhost:5000/expensetracker", 
+          {
+            withCredentials: true,
+          }
+          )
+          setdata(getdata)
+      };
+      func();     
+    }, []);
+
+    useEffect(() => {
+        const func = () =>{
+            if(data) {
+                const resdata = data.data.data;
+                console.log(resdata)
+                if(!resdata) {
+                    setBalance(0);
+                }
+                else {
+                    var bal = 0;
+                    const len = resdata.length;
+                    for(var i=0;i<len;i++) {
+                        if(resdata[i].Transaction_type === "+") {
+                            bal += resdata[i].Amount_Changed;
+                        }
+                        else {
+                            bal -= resdata[i].Amount_Changed;
+                        }
+                    }
+                    console.log(bal)
+                    setBalance(bal)
+                }
+            }
+        }
+        func()
+    }, [data])
 
     return (
         <>
@@ -31,7 +70,7 @@ const ExpenseTracker = () => {
 
                     {Option==='Transaction'?
                     <ExpenseTrackerForm  Balance={Balance} setBalance={setBalance} type={Type} setType={setType} note={Note} setNote={setNote} Amount={Amount} setAmount={setAmount} option={Option} setOption={setOption}/> :
-                    <ExpenseHistory  Balance={Balance} setBalance={setBalance} type={Type} setType={setType} note={Note} setNote={setNote} Amount={Amount} setAmount={setAmount} option={Option} setOption={setOption} />
+                    <ExpenseHistory setOption={setOption} />
                     }              
                     </div>
                 </div>

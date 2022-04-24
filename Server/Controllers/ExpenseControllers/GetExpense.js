@@ -1,9 +1,8 @@
 const ExpenseTracker = require("../../models/Expensetrack");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const User = require("../../models/users");
 
 const GetExpenses = async (req, res) => {
-  const token = req.headers.token;
+  const token = req.cookies.jwt;
   const user = await User.findOne({ token: token });
   ExpenseTracker.find({ User: user._id }, (error, data) => {
     if (error) {

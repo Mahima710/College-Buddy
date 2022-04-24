@@ -15,7 +15,11 @@ const Register = () => {
         e.preventDefault();
         console.log("here")
         if (Username && Password && Confirm_Password && Password === Confirm_Password) {
-            axios.post('http://localhost:5000/register', { username: Username, password: Password, confirm_password: Confirm_Password, email:Email })
+            axios.post('http://localhost:5000/register', 
+            { username: Username, password: Password, confirm_password: Confirm_Password, email:Email },
+            {
+                withCredentials:true
+            })
                 .then(res => {
                     console.log(res)
                     history('/')

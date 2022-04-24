@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const token = req.query.token || req.headers["token"] || req.params.token;
-  console.log("auth : ", token, "req : ", req.headers["token"]);
+  let token;
+  if (req.cookies) token = req.cookies.jwt;
   if (!token) {
     return res.status(404).json({ success: false, message: "Token not found" });
   } else {
     try {
-      const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+      jwt.verify(token, process.env.TOKEN_KEY);
     } catch (err) {
       return res
         .status(500)
